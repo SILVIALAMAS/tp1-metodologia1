@@ -1,0 +1,64 @@
+EJERCICIO 1 TP1 METODOLOGIA 1
+Práctica 1. Repaso de POO. Interfaces Ejercicio 1 Implemente la siguiente interface que representa cualquier objeto que sabe compararse con otro objeto de su “mismo tipo”:
+Comparable sosIgual(Comparable)   Devuelve verdadero si el objeto que recibe el mensaje es el mismo que el “comparable” recibido por parámetro, devuelve falso en caso contrario
+sosMenor(Comparable)   Devuelve verdadero si el objeto que recibe el mensaje es más chico que el “comparable” recibido por parámetro, devuelve falso en caso contrario
+sosMayor(Comparable)   Devuelve verdadero si el objeto que recibe el mensaje es más grande que el “comparable” recibido por parámetro, devuelve falso en caso contrario
+Nota: asumiremos que el elemento que recibe el mensaje y el objeto recibido por parámetro son del “mismo tipo”. 
+
+using System;
+
+public interface Comparable
+{
+    bool sosIgual(Comparable otro);
+    bool sosMenor(Comparable otro);
+    bool sosMayor(Comparable otro);
+}
+
+public class MiClase : Comparable
+{
+    public int valor;
+
+    public MiClase(int valor)
+    {
+        this.valor = valor;
+    }
+
+    // Implementación del método sosIgual
+    public bool sosIgual(Comparable otro)
+    {
+        MiClase otroObjeto = (MiClase)otro;  // Hacemos un cast directo porque sabemos que es del mismo tipo.
+        return this.valor == otroObjeto.valor;
+    }
+
+    // Implementación del método sosMenor
+    public bool sosMenor(Comparable otro)
+    {
+        MiClase otroObjeto = (MiClase)otro;  // Hacemos un cast directo porque sabemos que es del mismo tipo.
+        return this.valor < otroObjeto.valor;
+    }
+
+    // Implementación del método sosMayor
+    public bool sosMayor(Comparable otro)
+    {
+        MiClase otroObjeto = (MiClase)otro;  // Hacemos un cast directo porque sabemos que es del mismo tipo.
+        return this.valor > otroObjeto.valor;
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        MiClase obj1 = new MiClase(5);
+        MiClase obj2 = new MiClase(10);
+        MiClase obj3 = new MiClase(5);
+
+        Console.WriteLine(obj1.sosIgual(obj2)); // False, 5 != 10
+        Console.WriteLine(obj1.sosMenor(obj2)); // True, 5 < 10
+        Console.WriteLine(obj1.sosMayor(obj2)); // False, 5 no es mayor que 10
+
+        Console.WriteLine(obj1.sosIgual(obj3)); // True, 5 == 5
+        Console.WriteLine(obj1.sosMenor(obj3)); // False, 5 no es menor que 5
+        Console.WriteLine(obj1.sosMayor(obj3)); // False, 5 no es mayor que 5
+    }
+}
