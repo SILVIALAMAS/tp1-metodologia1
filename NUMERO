@@ -1,0 +1,69 @@
+Ejercicio 2 Implemente la clase Numero: Numero valor constructor(v) getValor  Es una variable que almacena un número entero  Es el constructor de la clase que recibe 
+un valor “v” y lo almacena en la variable “valor”  Devuelve la variable “valor” Haga que la clase Numero implemente la interface Comparable. Nota: Si se implementa en C#,
+en los tres métodos a implementar, se deberá castear el parámetro recibido a Numero. 
+using System;
+
+public interface Comparable
+{
+    bool sosIgual(Comparable otro);
+    bool sosMenor(Comparable otro);
+    bool sosMayor(Comparable otro);
+}
+
+public class Numero : Comparable
+{
+    public int valor;
+
+    // Constructor que recibe un valor y lo almacena en la variable "valor"
+    public Numero(int v)
+    {
+        valor = v;
+    }
+
+    // Método que devuelve el valor almacenado en la variable "valor"
+    public int getValor()
+    {
+        return valor;
+    }
+
+    // Implementación del método sosIgual
+    public bool sosIgual(Comparable otro)
+    {
+        Numero otroNumero = (Numero)otro; // Casteamos el parámetro a tipo Numero
+        return this.valor == otroNumero.valor; // Comparamos los valores
+    }
+
+    // Implementación del método sosMenor
+    public bool sosMenor(Comparable otro)
+    {
+        Numero otroNumero = (Numero)otro; // Casteamos el parámetro a tipo Numero
+        return this.valor < otroNumero.valor; // Comparamos si el valor es menor
+    }
+
+    // Implementación del método sosMayor
+    public bool sosMayor(Comparable otro)
+    {
+        Numero otroNumero = (Numero)otro; // Casteamos el parámetro a tipo Numero
+        return this.valor > otroNumero.valor; // Comparamos si el valor es mayor
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Creando instancias de la clase Numero
+        Numero num1 = new Numero(10);
+        Numero num2 = new Numero(20);
+        Numero num3 = new Numero(10);
+
+        // Comparando los objetos usando los métodos implementados
+        Console.WriteLine(num1.sosIgual(num2)); // False, 10 != 20
+        Console.WriteLine(num1.sosMenor(num2)); // True, 10 < 20
+        Console.WriteLine(num1.sosMayor(num2)); // False, 10 no es mayor que 20
+
+        Console.WriteLine(num1.sosIgual(num3)); // True, 10 == 10
+        Console.WriteLine(num1.sosMenor(num3)); // False, 10 no es menor que 10
+        Console.WriteLine(num1.sosMayor(num3)); // False, 10 no es mayor que 10
+    }
+}
