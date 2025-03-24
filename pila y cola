@@ -1,0 +1,244 @@
+Ejercicio 4 Implemente las clases Pila y Cola (vistas en Algoritmos y Programación) y haga que las dos clases implementen la interface Coleccionable. 
+using System;
+using System.Collections.Generic; // Para usar List<T> y Queue<T>
+
+// Interfaz Comparable
+public interface Comparable
+{
+    bool sosIgual(Comparable otro);
+    bool sosMenor(Comparable otro);
+    bool sosMayor(Comparable otro);
+}
+
+// Interfaz Coleccionable
+public interface Coleccionable
+{
+    int cuantos();                // Devuelve la cantidad de elementos en la colección
+    Comparable minimo();          // Devuelve el elemento con el valor mínimo en la colección
+    Comparable maximo();          // Devuelve el elemento con el valor máximo en la colección
+    void agregar(Comparable c);   // Agrega un elemento comparable a la colección
+    bool contiene(Comparable c);  // Devuelve true si la colección contiene el elemento
+}
+
+// Clase Numero que implementa Comparable
+public class Numero : Comparable
+{
+    public int valor;
+
+    public Numero(int v)
+    {
+        valor = v;
+    }
+
+    public int getValor()
+    {
+        return valor;
+    }
+
+    public bool sosIgual(Comparable otro)
+    {
+        Numero otroNumero = (Numero)otro;
+        return this.valor == otroNumero.valor;
+    }
+
+    public bool sosMenor(Comparable otro)
+    {
+        Numero otroNumero = (Numero)otro;
+        return this.valor < otroNumero.valor;
+    }
+
+    public bool sosMayor(Comparable otro)
+    {
+        Numero otroNumero = (Numero)otro;
+        return this.valor > otroNumero.valor;
+    }
+}
+
+// Clase Pila que implementa Coleccionable
+public class Pila : Coleccionable
+{
+    private List<Comparable> elementos = new List<Comparable>();
+
+    // Devuelve la cantidad de elementos en la pila
+    public int cuantos()
+    {
+        return elementos.Count;
+    }
+
+    // Devuelve el elemento con el valor mínimo en la pila
+    public Comparable minimo()
+    {
+        if (elementos.Count == 0) return null;
+
+        Comparable minimo = elementos[0];
+        foreach (var item in elementos)
+        {
+            if (item.sosMenor(minimo))
+            {
+                minimo = item;
+            }
+        }
+        return minimo;
+    }
+
+    // Devuelve el elemento con el valor máximo en la pila
+    public Comparable maximo()
+    {
+        if (elementos.Count == 0) return null;
+
+        Comparable maximo = elementos[0];
+        foreach (var item in elementos)
+        {
+            if (item.sosMayor(maximo))
+            {
+                maximo = item;
+            }
+        }
+        return maximo;
+    }
+
+    // Agrega un elemento a la pila
+    public void agregar(Comparable c)
+    {
+        elementos.Add(c);
+    }
+
+    // Devuelve verdadero si el elemento está en la pila
+    public bool contiene(Comparable c)
+    {
+        foreach (var item in elementos)
+        {
+            if (item.sosIgual(c))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Extrae el elemento de la parte superior de la pila (LIFO)
+    public Comparable sacar()
+    {
+        if (elementos.Count == 0) return null;
+        var item = elementos[elementos.Count - 1];
+        elementos.RemoveAt(elementos.Count - 1);
+        return item;
+    }
+}
+
+// Clase Cola que implementa Coleccionable
+public class Cola : Coleccionable
+{
+    private Queue<Comparable> elementos = new Queue<Comparable>();
+
+    // Devuelve la cantidad de elementos en la cola
+    public int cuantos()
+    {
+        return elementos.Count;
+    }
+
+    // Devuelve el elemento con el valor mínimo en la cola
+    public Comparable minimo()
+    {
+        if (elementos.Count == 0) return null;
+
+        Comparable minimo = elementos.Peek(); // Primer elemento en la cola
+        foreach (var item in elementos)
+        {
+            if (item.sosMenor(minimo))
+            {
+                minimo = item;
+            }
+        }
+        return minimo;
+    }
+
+    // Devuelve el elemento con el valor máximo en la cola
+    public Comparable maximo()
+    {
+        if (elementos.Count == 0) return null;
+
+        Comparable maximo = elementos.Peek(); // Primer elemento en la cola
+        foreach (var item in elementos)
+        {
+            if (item.sosMayor(maximo))
+            {
+                maximo = item;
+            }
+        }
+        return maximo;
+    }
+
+    // Agrega un elemento a la cola
+    public void agregar(Comparable c)
+    {
+        elementos.Enqueue(c);
+    }
+
+    // Devuelve verdadero si el elemento está en la cola
+    public bool contiene(Comparable c)
+    {
+        foreach (var item in elementos)
+        {
+            if (item.sosIgual(c))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Extrae el primer elemento de la cola (FIFO)
+    public Comparable sacar()
+    {
+        if (elementos.Count == 0) return null;
+        return elementos.Dequeue();
+    }
+}
+
+// Clase Program (Main)
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Crear una pila y una cola
+        Pila pila = new Pila();
+        Cola cola = new Cola();
+
+        // Crear algunos objetos Numero
+        Numero num1 = new Numero(5);
+        Numero num2 = new Numero(10);
+        Numero num3 = new Numero(1);
+        Numero num4 = new Numero(7);
+
+        // Agregar elementos a la pila y la cola
+        pila.agregar(num1);
+        pila.agregar(num2);
+        pila.agregar(num3);
+        pila.agregar(num4);
+
+        cola.agregar(num1);
+        cola.agregar(num2);
+        cola.agregar(num3);
+        cola.agregar(num4);
+
+        // Verificar la cantidad de elementos
+        Console.WriteLine($"Cantidad de elementos en la pila: {pila.cuantos()}");
+        Console.WriteLine($"Cantidad de elementos en la cola: {cola.cuantos()}");
+
+        // Ver el elemento mínimo y máximo en la pila y la cola
+        Console.WriteLine($"Elemento mínimo en la pila: {((Numero)pila.minimo()).getValor()}");
+        Console.WriteLine($"Elemento máximo en la pila: {((Numero)pila.maximo()).getValor()}");
+
+        Console.WriteLine($"Elemento mínimo en la cola: {((Numero)cola.minimo()).getValor()}");
+        Console.WriteLine($"Elemento máximo en la cola: {((Numero)cola.maximo()).getValor()}");
+
+        // Verificar si un elemento está en la pila o cola
+        Console.WriteLine($"¿Contiene la pila el número 10? {pila.contiene(num2)}");
+        Console.WriteLine($"¿Contiene la cola el número 10? {cola.contiene(num2)}");
+
+        // Sacar elementos de la pila y la cola
+        Console.WriteLine($"Elemento sacado de la pila: {((Numero)pila.sacar()).getValor()}");
+        Console.WriteLine($"Elemento sacado de la cola: {((Numero)cola.sacar()).getValor()}");
+    }
+}
