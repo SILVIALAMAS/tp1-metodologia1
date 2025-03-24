@@ -1,0 +1,154 @@
+Ejercicio 3 Implemente la siguiente interface que representa objetos que almacenan comparables: Coleccionable cuantos minimo maximo  Devuelve la cantidad 
+de elementos comparables que tiene el coleccionable  Devuelve el elemento de menor valor de la colección  Devuelve el elemento de mayor valor de la colección
+agregar(Comparable)    Agrega el comparable recibido por parámetro a la colección que recibe el mensaje contiene(Comparable)    Devuelve  verdadero  si  el
+comparable recibido por parámetro está incluido en la colección y falso en caso contrario 
+
+using System;
+using System.Collections.Generic; // Necesario para usar List<T>
+
+public interface Comparable
+{
+    bool sosIgual(Comparable otro);
+    bool sosMenor(Comparable otro);
+    bool sosMayor(Comparable otro);
+}
+
+public interface Coleccionable
+{
+    int cuantos();
+    Comparable minimo();
+    Comparable maximo();
+    void agregar(Comparable c);
+    bool contiene(Comparable c);
+}
+
+public class Numero : Comparable
+{
+    public int valor;
+
+    public Numero(int v)
+    {
+        valor = v;
+    }
+
+    public int getValor()
+    {
+        return valor;
+    }
+
+    public bool sosIgual(Comparable otro)
+    {
+        Numero otroNumero = (Numero)otro;
+        return this.valor == otroNumero.valor;
+    }
+
+    public bool sosMenor(Comparable otro)
+    {
+        Numero otroNumero = (Numero)otro;
+        return this.valor < otroNumero.valor;
+    }
+
+    public bool sosMayor(Comparable otro)
+    {
+        Numero otroNumero = (Numero)otro;
+        return this.valor > otroNumero.valor;
+    }
+}
+
+public class Coleccion : Coleccionable
+{
+    private List<Comparable> elementos = new List<Comparable>();
+
+    // Devuelve la cantidad de elementos en la colección
+    public int cuantos()
+    {
+        return elementos.Count;
+    }
+
+    // Devuelve el elemento de menor valor en la colección
+    public Comparable minimo()
+    {
+        if (elementos.Count == 0) return null;
+
+        Comparable minimo = elementos[0];
+        foreach (var item in elementos)
+        {
+            if (item.sosMenor(minimo))
+            {
+                minimo = item;
+            }
+        }
+        return minimo;
+    }
+
+    // Devuelve el elemento de mayor valor en la colección
+    public Comparable maximo()
+    {
+        if (elementos.Count == 0) return null;
+
+        Comparable maximo = elementos[0];
+        foreach (var item in elementos)
+        {
+            if (item.sosMayor(maximo))
+            {
+                maximo = item;
+            }
+        }
+        return maximo;
+    }
+
+    // Agrega un objeto Comparable a la colección
+    public void agregar(Comparable c)
+    {
+        elementos.Add(c);
+    }
+
+    // Devuelve verdadero si el objeto Comparable está en la colección
+    public bool contiene(Comparable c)
+    {
+        foreach (var item in elementos)
+        {
+            if (item.sosIgual(c))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Crear una nueva colección de números
+        Coleccion coleccion = new Coleccion();
+
+        // Crear algunos números
+        Numero num1 = new Numero(5);
+        Numero num2 = new Numero(10);
+        Numero num3 = new Numero(1);
+        Numero num4 = new Numero(7);
+
+        // Agregar números a la colección
+        coleccion.agregar(num1);
+        coleccion.agregar(num2);
+        coleccion.agregar(num3);
+        coleccion.agregar(num4);
+
+        // Verificar la cantidad de elementos en la colección
+        Console.WriteLine($"Cantidad de elementos en la colección: {coleccion.cuantos()}");
+
+        // Obtener el elemento mínimo y máximo de la colección
+        Comparable minimo = coleccion.minimo();
+        Comparable maximo = coleccion.maximo();
+
+        // Mostrar los valores del mínimo y máximo
+        Console.WriteLine($"El valor mínimo en la colección es: {((Numero)minimo).getValor()}");
+        Console.WriteLine($"El valor máximo en la colección es: {((Numero)maximo).getValor()}");
+
+        // Verificar si un número está en la colección
+        Console.WriteLine($"¿Contiene el número 10? {coleccion.contiene(num2)}");
+        Console.WriteLine($"¿Contiene el número 15? {coleccion.contiene(new Numero(15))}");
+    }
+}
