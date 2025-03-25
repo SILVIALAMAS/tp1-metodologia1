@@ -1,0 +1,60 @@
+public class ColeccionMultiple : Coleccionable
+{
+    private Pila pila;
+    private Cola cola;
+
+    // Constructor que recibe una Pila y una Cola
+    public ColeccionMultiple(Pila p, Cola c)
+    {
+        pila = p;
+        cola = c;
+    }
+
+    // Devuelve la cantidad total de elementos de ambos coleccionables
+    public int cuantos()
+    {
+        return pila.cuantos() + cola.cuantos();
+    }
+
+    // Devuelve el elemento de menor valor entre ambos coleccionables
+    public Comparable minimo()
+    {
+        Comparable minimoPila = pila.minimo();
+        Comparable minimoCola = cola.minimo();
+
+        if (minimoPila == null && minimoCola == null)
+            return null;
+
+        if (minimoPila == null) return minimoCola;
+        if (minimoCola == null) return minimoPila;
+
+        return minimoPila.sosMenor(minimoCola) ? minimoPila : minimoCola;
+    }
+
+    // Devuelve el elemento de mayor valor entre ambos coleccionables
+    public Comparable maximo()
+    {
+        Comparable maximoPila = pila.maximo();
+        Comparable maximoCola = cola.maximo();
+
+        if (maximoPila == null && maximoCola == null)
+            return null;
+
+        if (maximoPila == null) return maximoCola;
+        if (maximoCola == null) return maximoPila;
+
+        return maximoPila.sosMayor(maximoCola) ? maximoPila : maximoCola;
+    }
+
+    // No hace nada, ya que no podemos agregar elementos a ColeccionMultiple directamente
+    public void agregar(Comparable c)
+    {
+        // No hace nada
+    }
+
+    // Devuelve verdadero si el Comparable está en alguna de las dos colecciones
+    public bool contiene(Comparable c)
+    {
+        return pila.contiene(c) || cola.contiene(c);
+    }
+}
