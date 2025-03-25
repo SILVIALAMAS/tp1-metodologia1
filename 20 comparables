@@ -1,0 +1,23 @@
+Ejercicio 5 Implemente una función llenar que reciba un Coleccionable y que le agregue 20 comparables elegidos al azar. llenar(Coleccionable) 
+repetir 20 veces comparable = new Numero(valor_elegido_al_azar) coleccionable.agregar(comparable)
+
+public class Programa
+{
+    public static void Llenar(Coleccionable c)
+    {
+              
+        for (int i = 0; i < 20; i++)
+        {
+            
+            Comparable aux = new Numero(i);
+            c.Agregar(aux);
+        }
+    }
+
+    public static void Main()
+    {
+        Coleccion c = new Coleccion();
+        Llenar(c);
+        c.Mostrar();
+    }
+}
