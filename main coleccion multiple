@@ -1,0 +1,24 @@
+public static void Main()
+    {
+        // Crear instancias de Pila y Cola
+        Pila pila = new Pila();
+        Cola cola = new Cola();
+        
+        // Crear una instancia de ColeccionMultiple con la Pila y la Cola
+        ColeccionMultiple multiple = new ColeccionMultiple(pila, cola);
+
+        // Llenar las colecciones con 20 elementos aleatorios
+        Llenar(pila);
+        Llenar(cola);
+
+        // Informar sobre cada colección
+        Console.WriteLine("Información de la Pila:");
+        Informar(pila);
+
+        Console.WriteLine("\nInformación de la Cola:");
+        Informar(cola);
+
+        Console.WriteLine("\nInformación de la Colección Múltiple:");
+        Informar(multiple);
+    }
+}
