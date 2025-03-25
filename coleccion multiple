@@ -16,43 +16,53 @@ public class ColeccionMultiple : Coleccionable
         return pila.cuantos() + cola.cuantos();
     }
 
-    // Devuelve el elemento de menor valor entre ambos coleccionables
+    // Devuelve el elemento mínimo de ambas colecciones
     public Comparable minimo()
     {
-        Comparable minimoPila = pila.minimo();
-        Comparable minimoCola = cola.minimo();
+        Comparable minPila = pila.minimo();
+        Comparable minCola = cola.minimo();
 
-        if (minimoPila == null && minimoCola == null)
+        if (minPila == null && minCola == null)
             return null;
 
-        if (minimoPila == null) return minimoCola;
-        if (minimoCola == null) return minimoPila;
+        if (minPila == null) return minCola;
+        if (minCola == null) return minPila;
 
-        return minimoPila.sosMenor(minimoCola) ? minimoPila : minimoCola;
+        // Usamos if-else en lugar de ternario
+        if (minPila.sosMenor(minCola))
+        {
+            return minPila;  // Si minPila es menor, devolvemos minPila
+        }
+        else
+        {
+            return minCola;  // Si no, devolvemos minCola
+        }
     }
 
-    // Devuelve el elemento de mayor valor entre ambos coleccionables
+    // Devuelve el elemento máximo de ambas colecciones
     public Comparable maximo()
     {
-        Comparable maximoPila = pila.maximo();
-        Comparable maximoCola = cola.maximo();
+        Comparable maxPila = pila.maximo();
+        Comparable maxCola = cola.maximo();
 
-        if (maximoPila == null && maximoCola == null)
+        if (maxPila == null && maxCola == null)
             return null;
 
-        if (maximoPila == null) return maximoCola;
-        if (maximoCola == null) return maximoPila;
+        if (maxPila == null) return maxCola;
+        if (maxCola == null) return maxPila;
 
-        return maximoPila.sosMayor(maximoCola) ? maximoPila : maximoCola;
+        // Usamos if-else en lugar de ternario
+        if (maxPila.sosMayor(maxCola))
+        {
+            return maxPila;  // Si maxPila es mayor, devolvemos maxPila
+        }
+        else
+        {
+            return maxCola;  // Si no, devolvemos maxCola
+        }
     }
 
-    // No hace nada, ya que no podemos agregar elementos a ColeccionMultiple directamente
-    public void agregar(Comparable c)
-    {
-        // No hace nada
-    }
-
-    // Devuelve verdadero si el Comparable está en alguna de las dos colecciones
+    // Verifica si un valor está en alguna de las dos colecciones
     public bool contiene(Comparable c)
     {
         return pila.contiene(c) || cola.contiene(c);
