@@ -1,0 +1,65 @@
+using System;
+using System.Collections.Generic;
+
+public class Pila : Coleccionable
+{
+    private this.elementos = new List<Comparable>();
+
+    // Implementación de apilar
+    public void agregar(Comparable c)
+    {
+        this.elementos.Add(c);
+    }
+
+    // Implementación de desapilar
+    public Comparable desapilar()
+    {
+        Comparable aux = this.elementos[this.elementos.Count - 1];
+        this.elementos.RemoveAt(this.elementos.Count - 1);
+        return aux;
+    }
+
+    // Implementación de la interfaz Coleccionable
+    public int cuantos()
+    {
+        return this.elementos.Count;
+    }
+
+    public Comparable minimo()
+    {
+        Comparable min = this.elementos[0];
+        for(int i=1;i<this.cuantos();i++)
+         {
+           if(this.elementos[i].sosMenor(min))
+         {
+           min=this.elementos[i];
+          }
+         }
+        return min;
+    }
+
+    public Comparable maximo()
+    {
+        Comparable max = this.elementos[0];
+        for(int i=1;i<this.cuantos();i++)
+         {
+           if(this.elementos[i].sosMayor(min))
+         {
+           max=this.elementos[i];
+          }
+         }
+        return max;
+    }
+    
+
+      public bool contiene(Comparable c)
+    {
+        foreach(Comparable elem in elementos)
+     {
+       if(elem.sosIgual(c))
+      {
+        return true;
+    }
+  }
+    return false;
+}
