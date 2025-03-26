@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 public class Cola : Coleccionable
 {
-    private Arraylist lista;
+    private ArrayList lista;
     public Cola()
 {
-this.lista=new Arraylist();
+this.lista=new ArrayList();
 }
     // Implementación de encolar
     public void agregar(Comparable c)
