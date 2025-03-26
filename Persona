@@ -1,0 +1,44 @@
+public abstract class Persona : Comparable
+{
+    protected string nombre;
+    protected string dni;
+
+    // Constructor de la clase Persona
+    public Persona(string n, string d)
+    {
+        nombre = n;
+        dni = d;
+    }
+
+    // Métodos para obtener el nombre y el DNI
+    public string getNombre()
+    {
+        return nombre;
+    }
+
+    public string getDNI()
+    {
+        return dni;
+    }
+
+    // Implementación del método sosIgual de la interfaz Comparable
+    public bool sosIgual(Comparable otro)
+    {
+        Persona otraPersona = (Persona)otro; // Casteamos el parámetro a tipo Persona
+        return this.dni == otraPersona.dni; // Comparamos si el DNI es igual
+    }
+
+    // Implementación del método sosMenor de la interfaz Comparable
+    public bool sosMenor(Comparable otro)
+    {
+        Persona otraPersona = (Persona)otro; // Casteamos el parámetro a tipo Persona
+        return this.dni < otraPersona.dni; // Comparamos si el DNI de "this" es menor que el de "otro"
+    }
+
+    // Implementación del método sosMayor de la interfaz Comparable
+    public bool sosMayor(Comparable otro)
+    {
+        Persona otraPersona = (Persona)otro; // Casteamos el parámetro a tipo Persona
+        return this.dni > otraPersona.dni; // Comparamos si el DNI de "this" es mayor que el de "otro"
+    }
+}
