@@ -1,0 +1,63 @@
+using System;
+using System.Collections.Generic;
+
+public class Cola : Coleccionable
+{
+    private Arraylist lista;
+    public Cola()
+{
+this.lista=new Arraylist();
+}
+    // Implementación de encolar
+    public void agregar(Comparable c)
+    {
+        this.lista.Add(c);
+    }
+
+    // Implementación de desencolar
+    public Comparable desencolar()
+    {
+        return.this.lista.Dequeue();
+    }
+
+    // Implementación de la interfaz Coleccionable
+    public int cuantos()
+    {
+        return this.lista.Count;
+    }
+
+    public Comparable minimo()
+    {
+        Comparable m = (Comparable)lista[0];
+        foreach (Comparable n in lista)
+        {
+            if (m.sosMenor(n))
+               { this.m = n;
+        }
+      }
+        return m;
+    }
+
+    public Comparable maximo()
+    {
+         Comparable m = (Comparable)lista[0];
+        foreach (Comparable n in lista)
+        {
+            if (m.sosMayor(n))
+               { this.m = n;
+        }
+      }
+        return m;
+    }
+
+    public bool contiene(Comparable c)
+    {
+        foreach(Comparable elem in lista)
+     {
+      if(elem.sosIgual(c))
+       {
+      return true;
+       }
+      }
+     return false;
+  }
