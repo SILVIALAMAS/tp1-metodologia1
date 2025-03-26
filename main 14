@@ -1,0 +1,14 @@
+ static void Main(string[] args)
+    {
+        // Creamos una Pila, una Cola y una Colección Multiple
+        Pila pila = new Pila();
+        Cola cola = new Cola();
+        ColeccionMultiple multiple = new ColeccionMultiple(pila, cola);
+
+        // Llenamos la Pila y la Cola con alumnos
+        llenaAlumnos(pila);
+        llenaAlumnos(cola);
+
+        // Informamos sobre la colección múltiple
+        informar(multiple);
+    }
