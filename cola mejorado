@@ -17,7 +17,9 @@ this.lista=new ArrayList();
     // Implementación de desencolar
     public Comparable desencolar()
     {
-        return.this.lista.Dequeue();
+        Comparable aux = (Comparable)this.lista[0];
+        this.lista.RemoveAt(0);
+        return aux;
     }
 
     // Implementación de la interfaz Coleccionable
@@ -32,7 +34,7 @@ this.lista=new ArrayList();
         foreach (Comparable n in lista)
         {
             if (m.sosMenor(n))
-               { this.m = n;
+               { m = n;
         }
       }
         return m;
